@@ -1,0 +1,16 @@
+theme: minima
+title: "Travel Planner"
+description: "여행 일정 플래너 — AI 기반 검색·추천·생성"
+baseurl: "/travel-planner"
+url: "https://idean3885.github.io"
+include:
+  - trips
+exclude:
+  - mcp-servers
+  - specs
+  - .specify
+  - tests
+  - scripts
+  - templates
+  - "*.py"
+  - Makefile

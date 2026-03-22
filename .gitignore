@@ -1,12 +1,32 @@
 # PDF 출력물 (로컬 생성, 원격에 올리지 않음)
 **/pdf/
 
-# macOS
-.DS_Store
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables / secrets
+.env
+.env.*
 
 # IDE
 .idea/
 .vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+dist/
+build/
 
 # Claude Code (로컬 설정)
 .claude/settings.local.json
