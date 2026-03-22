@@ -235,8 +235,12 @@ async def get_hotel_details(hotel_id: str, checkin_date: str, checkout_date: str
     info_parts.append(f"Address: {data.get('address', 'N/A')}")
     info_parts.append(f"City: {data.get('city', 'N/A')}")
 
-    # Rating
-    review_score = data.get("review_score", "N/A")
+    # Rating — review_score can be None in detail API; fall back to wifi_review_score
+    review_score = data.get("review_score")
+    if not review_score:
+        wifi = data.get("wifi_review_score", {})
+        review_score = wifi.get("rating") if isinstance(wifi, dict) else None
+    review_score = review_score if review_score else "N/A"
     review_count = data.get("review_nr", "N/A")
     review_word = data.get("review_score_word", "N/A")
     info_parts.append(f"Rating: {review_score}/10 ({review_word}, {review_count} reviews)")
