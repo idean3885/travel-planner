@@ -48,7 +48,11 @@
 
 - [ ] T015 [US1] CLI 스크립트 E2E 검증 — quickstart.md QS1 시나리오 수행. 숙소 검색(MCP) + 관광지 검색(CLI) + 식당 추천(웹 검색) 각각 테스트. 결과 기록
 
-**Checkpoint**: US1 독립 검증 완료. MCP 도구(Hotels + Flights) + CLI 스크립트(Attractions) + Claude 웹 검색(식당, 교통)으로 모든 여행 요소 검색·추천 가능
+**Checkpoint**: US1 독립 검증 완료.
+- MCP 도구 8개 (Hotels 3 + Flights 2 + Attractions 3) + CLI 스크립트 3개
+- 한화(KRW) 기본 표시, 다중 플랫폼 예약 링크 (Booking.com, Agoda, Hotels.com, Google Hotels)
+- PyPI 배포 (travel-planner-mcp), 1줄 설치, Claude Desktop 자동 설정
+- Claude 웹 검색(식당, 교통)으로 모든 여행 요소 검색·추천 가능
 
 ---
 

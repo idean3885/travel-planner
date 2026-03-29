@@ -32,24 +32,30 @@ Input:
   checkin_date: str    # YYYY-MM-DD
   checkout_date: str   # YYYY-MM-DD
   adults: int = 2
+  currency_code: str = "KRW"  # 통화 코드 (기본 한화)
 
 Output: str            # 최대 10개 호텔, 포맷된 텍스트
-  - Name, Location, Rating, Reviews, Room, Price, Discount, Coordinates, Stars, Photo, Check-in/out
+  - Name, Hotel ID, Location, Rating, Reviews, Room, Price(KRW), Discount, Coordinates, Stars, Photo, Check-in/out
+
+Note: 결과 표시 후 관심 호텔에 대해 get_hotel_details를 호출하여 예약 링크를 제공해야 함
 ```
 
 ### get_hotel_details
 
-특정 호텔의 상세 정보를 조회한다.
+특정 호텔의 상세 정보 + 다중 플랫폼 예약 링크를 조회한다.
 
 ```
 Input:
-  hotel_id: str        # get_hotels 결과 또는 Booking.com URL에서 추출
+  hotel_id: str        # get_hotels 결과의 Hotel ID
   checkin_date: str    # YYYY-MM-DD
   checkout_date: str   # YYYY-MM-DD
   adults: int = 2
+  currency_code: str = "KRW"  # 통화 코드 (기본 한화)
 
 Output: str            # 포맷된 텍스트
-  - Name, Address, City, Rating, Stars, Check-in/out, Facilities, Price/night, Description
+  - Name, Address, City, Rating, Stars, Check-in/out, Facilities, Price/night(KRW)
+  - 예약 링크: Booking.com(직접), Agoda(검색), Hotels.com(검색), Google Hotels(검색)
+  - Description
 ```
 
 ### search_flight_destinations

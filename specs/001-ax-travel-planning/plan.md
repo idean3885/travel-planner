@@ -19,6 +19,8 @@
 **Project Type**: CLI 스크립트 (검색 도구) + FE-only 웹앱 (딜리버리)
 **Performance Goals**: API 응답 30초 이내 (httpx timeout)
 **Constraints**: Booking.com API 월 250건 (Basic $8.99), AppPaaS Node 20, FE-only Stateless
+**Currency**: KRW 기본, 다중 플랫폼 예약 링크 (Booking.com, Agoda, Hotels.com, Google Hotels)
+**Distribution**: PyPI (travel-planner-mcp), 1줄 설치 (curl | bash), Claude Desktop 자동 설정
 **Scale/Scope**: 1건 여행 (15일, 5개 도시), 사용자 1명 + 동행자 2~5명
 
 ## Constitution Check
