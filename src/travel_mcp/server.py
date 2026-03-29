@@ -7,7 +7,7 @@ import argparse
 from typing import Dict, List, Any, Optional
 from mcp.server.fastmcp import FastMCP
 
-from travel_mcp.api_client import make_rapidapi_request, RAPIDAPI_KEY, RAPIDAPI_HOST
+from travel_mcp.api_client import make_rapidapi_request
 
 # Configure logging
 logging.basicConfig(
@@ -19,11 +19,6 @@ logger = logging.getLogger("travel-mcp-server")
 
 # Initialize FastMCP server
 mcp = FastMCP("travel")
-
-# Validate required environment variables
-if not RAPIDAPI_KEY:
-    logger.error("RAPIDAPI_KEY environment variable is not set. Please create a .env file with your API key.")
-    sys.exit(1)
 
 @mcp.tool()
 async def search_destinations(query: str) -> str:

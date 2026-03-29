@@ -3,23 +3,33 @@ import logging
 import os
 from typing import Dict, Any, Optional
 
-from dotenv import load_dotenv
-
-load_dotenv()
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 logger = logging.getLogger("travel-mcp-server")
 
+# 환경변수는 모듈 로드 시 읽되, Claude Desktop의 env 블록으로 주입된 값도 반영됨
 RAPIDAPI_KEY = os.getenv("RAPIDAPI_KEY")
 RAPIDAPI_HOST = os.getenv("RAPIDAPI_HOST", "booking-com15.p.rapidapi.com")
 
 
 async def make_rapidapi_request(endpoint: str, params: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
     """Make a request to the RapidAPI with proper error handling."""
-    url = f"https://{RAPIDAPI_HOST}{endpoint}"
+    # 런타임에 환경변수 재확인 (Claude Desktop env 블록 지원)
+    api_key = RAPIDAPI_KEY or os.getenv("RAPIDAPI_KEY")
+    api_host = RAPIDAPI_HOST or os.getenv("RAPIDAPI_HOST", "booking-com15.p.rapidapi.com")
+
+    if not api_key:
+        return {"error": "RAPIDAPI_KEY is not set. Please check your .env file or environment variables."}
+
+    url = f"https://{api_host}{endpoint}"
 
     headers = {
-        "X-RapidAPI-Key": RAPIDAPI_KEY,
-        "X-RapidAPI-Host": RAPIDAPI_HOST
+        "X-RapidAPI-Key": api_key,
+        "X-RapidAPI-Host": api_host
     }
 
     logger.info(f"Making API request to {endpoint} with params: {params}")
