@@ -1,49 +1,66 @@
-# Travel Planner
+# Travel Planner MCP
 
-AX(AI Experience) 기반 여행 플래너. AI가 숙소·항공편·관광·식사 등 여행 요소를 검색·분석·추천하고, 사용자와 소통하며 일정을 완성하여 동행자에게 모바일로 공유합니다.
+여행 숙소, 항공편, 관광지를 검색하고 AI가 추천하는 Claude Desktop 플러그인
 
-## 핵심 컨셉
+## 설치 (맥북, 1줄)
 
-- **AI 주도 플래닝** — 여행 조건을 알려주면 AI가 검색·분석 후 후보를 추천 기준과 함께 제시. 사용자가 선택/보완하여 확정
-- **모바일 딜리버리** — 완성된 일정을 동행자(비개발자)가 모바일에서 바로 열람
-- **기존 예약 유지** — 이미 예약된 숙소·항공편은 유지하고, 미확정 부분만 AI가 채움
-
-## 프로젝트 상태
-
-### v1 — 플래닝 + 모바일 딜리버리 (진행 중)
-
-- 여행 요소 검색·추천 (숙소, 항공편, 관광, 식사, 교통)
-- 일별 일정 + 전체 요약 생성
-- 동행자 모바일 열람
-
-### v2 — 웹앱 도입 (예정)
-
-- 웹앱 일정 열람 + 디자인 커스텀
-- 비용 기입/관리 (트래블월렛, 카드, 현금)
-
-## 기술 스택
-
-- **AI**: Claude Desktop/Code
-- **데이터**: Booking.com RapidAPI (booking-com15)
-- **일정 관리**: 마크다운 기반, Git 버전 추적
-
-## 현재 여행
-
-### 포르투갈 & 스페인 신혼여행 (2026.6.7~6.20)
-
-```
-리스본 1박 → 포르투 3박 → 마드리드 1박 → 세비야 2박 → 그라나다 1박 → 바르셀로나 5박
+```bash
+curl -sSL https://raw.githubusercontent.com/idean3885/travel-planner/main/scripts/setup.sh | bash
 ```
 
-- 14일, 6개 도시, 13박
-- 테마: 와인 & 미식, 건축, 해변
+- RapidAPI 키 입력 → 자동 설치 완료
+- Claude Desktop 재시작 후 바로 사용
 
-## 문서
+### RapidAPI 키 발급
 
-- [v1 Spec](docs/spec.md) — 프로젝트 스펙
-- [Constitution](.specify/memory/constitution.md) — 프로젝트 헌법 (핵심 원칙)
-- [Feature Spec](specs/001-ax-travel-planning/spec.md) — AX 여행 플래닝 기능 스펙
+1. [RapidAPI - Booking.com](https://rapidapi.com/DataCrawler/api/booking-com15) 접속
+2. 회원가입 후 **Basic 플랜 구독** ($8.99/월)
+3. "X-RapidAPI-Key" 복사해두기
 
-## 라이선스
+## 사용법
 
-개인 프로젝트입니다.
+Claude Desktop에서 자연어로 질문하기:
+
+| 질문 예시 | 동작 |
+|----------|------|
+| "마드리드 6/11~12 숙소 추천해줘" | 숙소 검색 + AI 추천 |
+| "바르셀로나 관광지 추천해줘" | 관광지 검색 + AI 추천 |
+| "포르투에서 리스본 항공편 찾아줘" | 항공편 검색 |
+
+## 제공 도구 (8개)
+
+### 숙소 검색
+- **search_destinations** — 도시/숙소 검색
+- **get_hotels** — 호텔 목록 조회
+- **get_hotel_details** — 호텔 상세 정보
+
+### 항공편 검색
+- **search_flight_destinations** — 공항/도시 검색
+- **search_flights** — 항공편 검색
+
+### 관광지 검색
+- **search_attraction_locations** — 관광지 위치 검색
+- **search_attractions** — 관광지 목록 (가격, 리뷰, 취소정책)
+- **get_attraction_details** — 관광지 상세 정보
+
+## 업데이트
+
+```bash
+curl -sSL https://raw.githubusercontent.com/idean3885/travel-planner/main/scripts/setup.sh | bash
+```
+
+같은 명령어로 업데이트됩니다 (기존 설정 자동 유지).
+
+## 삭제
+
+Claude Desktop 설정에서 "travel" 항목을 제거하세요:
+
+1. Claude Desktop > Settings
+2. "travel" 또는 "hotels" 관련 항목 삭제
+3. Claude Desktop 재시작
+
+## 개발자용
+
+- `scripts/setup.sh` — 개발 환경 설정
+- `pytest tests/unit/ -v` — 단위 테스트 실행
+- PyPI: `pip install travel-planner-mcp`
