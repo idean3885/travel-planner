@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+tests/
+trips/
+docs/
+specs/
+templates/
+scripts/
+web/

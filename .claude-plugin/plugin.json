@@ -1,0 +1,9 @@
+{
+  "name": "travel-planner",
+  "description": "여행 숙소, 항공편, 관광지를 검색하고 추천하는 MCP 서버",
+  "author": {
+    "name": "idean3885"
+  },
+  "repository": "https://github.com/idean3885/travel-planner",
+  "mcpServers": "./.mcp.json"
+}

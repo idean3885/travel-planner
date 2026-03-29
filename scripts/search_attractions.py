@@ -6,16 +6,18 @@ import asyncio
 import sys
 from pathlib import Path
 
-# Add api_client to path
-sys.path.insert(0, str(Path(__file__).parent.parent / "mcp-servers" / "hotels_mcp_server"))
-
 from dotenv import load_dotenv
 
-# Load .env from the hotels_mcp_server directory
-env_path = Path(__file__).parent.parent / "mcp-servers" / "hotels_mcp_server" / ".env"
-load_dotenv(dotenv_path=env_path)
+load_dotenv()
 
-from hotels_mcp.api_client import make_rapidapi_request
+try:
+    from travel_mcp.api_client import make_rapidapi_request
+except ImportError:
+    # Fallback: load from mcp-servers directory when package is not installed
+    env_path = Path(__file__).parent.parent / "mcp-servers" / "hotels_mcp_server" / ".env"
+    load_dotenv(dotenv_path=env_path)
+    sys.path.insert(0, str(Path(__file__).parent.parent / "mcp-servers" / "hotels_mcp_server"))
+    from hotels_mcp.api_client import make_rapidapi_request
 
 ENDPOINT = "/api/v1/attraction/searchAttractions"
 MAX_RESULTS = 15
