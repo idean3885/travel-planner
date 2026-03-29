@@ -57,6 +57,8 @@ echo "▶ 저장소 설치 중..."
 if [ -d "${INSTALL_DIR}/.git" ]; then
     echo "  이미 설치되어 있습니다. 최신 버전으로 업데이트 중..."
     git -C "${INSTALL_DIR}" pull --ff-only 2>&1 | sed 's/^/  /'
+    # 업데이트 후 패키지 재설치 (새 의존성 반영)
+    NEEDS_REINSTALL=true
     echo -e "  ${GREEN}업데이트 완료${NC}"
 else
     if [ -d "${INSTALL_DIR}" ]; then
@@ -81,13 +83,8 @@ fi
 echo ""
 echo "▶ 필요한 패키지 설치 중... (잠시 기다려 주세요)"
 "${VENV_DIR}/bin/pip" install --quiet --upgrade pip
-if [ -f "${INSTALL_DIR}/requirements.txt" ]; then
-    "${VENV_DIR}/bin/pip" install --quiet -r "${INSTALL_DIR}/requirements.txt"
-elif [ -f "${INSTALL_DIR}/pyproject.toml" ]; then
-    "${VENV_DIR}/bin/pip" install --quiet "${INSTALL_DIR}"
-else
-    "${VENV_DIR}/bin/pip" install --quiet fastmcp httpx python-dotenv
-fi
+# editable 모드로 설치 — git pull 시 소스 변경이 즉시 반영됨
+"${VENV_DIR}/bin/pip" install --quiet -e "${INSTALL_DIR}"
 echo -e "  ${GREEN}패키지 설치 완료${NC}"
 
 # ── 5. RapidAPI 키 입력 ───────────────────────────────────────────
@@ -153,8 +150,7 @@ travel_entry = {
     "cwd": install_dir,
     "env": {
         "RAPIDAPI_KEY": api_key,
-        "RAPIDAPI_HOST": "booking-com15.p.rapidapi.com",
-        "PYTHONPATH": src_dir
+        "RAPIDAPI_HOST": "booking-com15.p.rapidapi.com"
     }
 }
 
