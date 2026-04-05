@@ -1,8 +1,9 @@
 {
   "mcpServers": {
     "travel": {
-      "command": "uvx",
-      "args": ["--from", "travel-planner-mcp>=1.0.2", "travel-planner-mcp"]
+      "command": "/Users/nhn/.travel-planner/.venv/bin/python",
+      "args": ["-m", "travel_mcp.server"],
+      "cwd": "/Users/nhn/.travel-planner"
     }
   }
 }
